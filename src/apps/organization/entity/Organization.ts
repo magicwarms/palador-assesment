@@ -3,6 +3,6 @@ export type Organization = {
     employeeId?: number;
     managerId?: number;
     status: string;
-    manager?: Organization;
+    manager?: Organization | null;
     directReports?: Organization[];
 };

@@ -10,10 +10,11 @@ export const getAllEmployees = async (): Promise<Organization[] | undefined> => 
 
     const newEmployees: Organization[] = [];
     getOrganization?.forEach((item) => {
-        const findManagerData = getEmployeeByManagerId(item.managerId);
-        let manager;
-        if (findManagerData !== undefined) {
-            manager = { employeeId: findManagerData.employeeId, name: findManagerData.name, status: 'active' };
+        const managerId = item.managerId;
+        const findManagerData = managerId !== undefined ? getEmployeeByManagerId(managerId) : null;
+        let manager = null;
+        if (findManagerData) {
+            manager = { employeeId: findManagerData?.employeeId, name: findManagerData.name, status: 'active' };
         }
         newEmployees.push({
             name: item.name,

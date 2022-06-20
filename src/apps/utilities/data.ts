@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { readFileSync, unlink } from 'fs';
 import NodeCache from 'node-cache';
 import { Organization } from '../organization/entity/Organization';
 
@@ -12,9 +12,11 @@ const getOrganizationData = (): Organization[] | undefined => {
         const jsonFilePath = `${process.cwd()}/src/apps/organization/organization-tree.json`;
         const readFile = JSON.parse(readFileSync(jsonFilePath, 'utf8'));
         cache.set(cacheId, readFile);
-        // unlink(jsonFilePath, (err) => {
-        //     if (err) return err;
-        // });
+        if (process.env.NODE_ENV === 'production') {
+            unlink(jsonFilePath, (err) => {
+                if (err) return err;
+            });
+        }
         return readFile;
     }
 };
