@@ -19,4 +19,8 @@ const getOrganizationData = (): Organization[] | undefined => {
     }
 };
 
-export default getOrganizationData;
+const getEmployeeByManagerId = (managerId: number): Organization | undefined => {
+    return getOrganizationData()?.find((el) => el.employeeId === managerId);
+};
+
+export { getOrganizationData, getEmployeeByManagerId };

@@ -1,4 +1,4 @@
-import getOrganizationData from '../utilities/data';
+import { getOrganizationData, getEmployeeByManagerId } from '../utilities/data';
 import { Organization } from './entity/Organization';
 
 /**
@@ -10,7 +10,7 @@ export const getAllEmployees = async (): Promise<Organization[] | undefined> => 
 
     const newEmployees: Organization[] = [];
     getOrganization?.forEach((item) => {
-        const findManagerData = getOrganization.find((el) => el.employeeId === item.managerId);
+        const findManagerData = getEmployeeByManagerId(item.managerId);
         let manager;
         if (findManagerData !== undefined) {
             manager = { employeeId: findManagerData.employeeId, name: findManagerData.name, status: 'active' };
