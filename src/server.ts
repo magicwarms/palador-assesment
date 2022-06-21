@@ -55,7 +55,7 @@ const startServer = () => {
   return new Promise((resolve) => {
     const server = app.listen(PORT, () => {
       console.info(
-        `⚡️[palador-backend]: Server is running at ${process.env.APP_LINK}:${PORT} - ${currentTime}`
+        `⚡️[palador-backend]: Server is running at ${process.env.APP_LINK}:${PORT} - ${currentTime} - ${process.env.NODE_ENV}`
       );
       // this ensures that we properly close the server when the program exists
       setupCloseOnExit(server);
