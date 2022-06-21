@@ -4,7 +4,7 @@ import { Organization } from '../organization/entity/Organization';
 
 const cache = new NodeCache({ stdTTL: 0 });
 
-const getOrganizationData = (): Organization[] | undefined => {
+export const getOrganizationData = (): Organization[] | undefined => {
     const cacheId = 'organization-data';
     if (cache.has(cacheId)) {
         return cache.get(cacheId);
@@ -21,8 +21,10 @@ const getOrganizationData = (): Organization[] | undefined => {
     }
 };
 
-const getEmployeeByManagerId = (managerId: number): Organization | undefined => {
+export const getEmployeeByManagerId = (managerId: number): Organization | undefined => {
     return getOrganizationData()?.find((el) => el.employeeId === managerId);
 };
 
-export { getOrganizationData, getEmployeeByManagerId };
+export const getEmployeeByEmployeeId = (employeeId: number): Organization | undefined => {
+    return getOrganizationData()?.find((el) => el.employeeId === employeeId);
+};
