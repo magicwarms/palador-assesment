@@ -22,10 +22,8 @@
   <p align="center">
     Palador
     <br />
-    <a href="https://github.com/magicwarms/palador-assesment"><strong>Explore the docs »</strong></a>
     <br />
-    <br />
-    <a href="https://github.com/magicwarms/palador-assesment">View Demo</a>
+    <a href="https://github.com/magicwarms/palador-assesment">View Github</a>
   </p>
 </div>
 
@@ -36,6 +34,7 @@
 -   [Typescript](https://www.typescriptlang.org/)
 -   [NodeJS](https://nodejs.dev/)
 -   [ExpressJS](https://expressjs.com/)
+-   [Jest](https://jestjs.io/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -67,6 +66,19 @@
     then
     ```sh
     docker run -p 9000:9000 -d palador-assesment:latest
+    ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## UNIT TESTING & CODE COVERAGE
+
+1. you can do unit testing and code coverage by running this commands
+    ```sh
+    npm run test
+    ```
+    then, if you want to see the code coverage:
+    ```sh
+    npm run code:coverage
     ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
