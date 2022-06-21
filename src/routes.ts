@@ -1,3 +1,15 @@
+/*
+ * File: routes.ts
+ * Project: palador-assesment
+ * File Created: Monday, 21th June 2022
+ * Author: Andhana Utama (andhanautama@gmail.com)
+ * -----
+ * Last Modified: Thursday, 21th June 2022
+ * Modified By: Andhana Utama (andhanautama@gmail.com>)
+ * -----
+ * Copyright 2022 Andhana Utama
+ */
+
 import express, { Request, Response } from 'express';
 
 import organizationRouter from './apps/organization/organization.routes';

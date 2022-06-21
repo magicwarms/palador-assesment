@@ -1,3 +1,15 @@
+/*
+ * File: organization.repositories.ts
+ * Project: palador-assesment
+ * File Created: Monday, 21th June 2022
+ * Author: Andhana Utama (andhanautama@gmail.com)
+ * -----
+ * Last Modified: Thursday, 21th June 2022
+ * Modified By: Andhana Utama (andhanautama@gmail.com>)
+ * -----
+ * Copyright 2022 Andhana Utama
+ */
+
 import { readFileSync } from 'fs';
 import NodeCache from 'node-cache';
 import { Organization } from '../organization/entity/Organization';
