@@ -23,14 +23,14 @@ export const getById = (req: Request, res: Response, next: NextFunction): Respon
         if (employeeId.search(/[0-9]/) < 0 || !employeeId) {
             return res.status(400).json({
                 success: false,
-                data: null,
+                data: {},
                 message: 'Employee ID not valid and must be number'
             });
         }
         const getEmployeeDataById = getEmployeeById(+employeeId, includeReportTree);
         return res.status(getEmployeeDataById !== null ? 200 : 404).json({
             success: true,
-            data: getEmployeeDataById === null ? { employeeId } : getEmployeeDataById,
+            data: getEmployeeDataById === null ? {} : getEmployeeDataById,
             message: getEmployeeDataById !== null ? 'Employee found' : 'Employee not found'
         });
     } catch (err) {

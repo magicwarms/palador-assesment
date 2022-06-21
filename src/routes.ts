@@ -15,9 +15,9 @@ router.use('/hello', (_req: Request, res: Response) => {
         message: `Hello ${process.env.APP_NAME}`
     });
 });
-// router.use('/boom', (): void => {
-//     throw new Error('Error occured');
-// });
+router.use('/boom', (): void => {
+    throw new Error('Error occured');
+});
 router.use('/employees', organizationRouter);
 
 export default router;
