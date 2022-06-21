@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { getAllEmployees, getEmployeeById } from './organization.services';
+import { getAllEmployees, getEmployeeById, addEmployee } from './organization.services';
 
 export const getAll = async (_req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     try {
@@ -32,6 +32,22 @@ export const getById = (req: Request, res: Response, next: NextFunction): Respon
             success: true,
             data: getEmployeeDataById === null ? {} : getEmployeeDataById,
             message: getEmployeeDataById !== null ? 'Employee found' : 'Employee not found'
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const add = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
+    try {
+        const { name, status, managerId } = req.body;
+        const data = { name, status, managerId };
+
+        const createEmployee = await addEmployee(data);
+        return res.status(201).json({
+            success: true,
+            data: { employeeId: createEmployee },
+            message: 'Employee created'
         });
     } catch (err) {
         next(err);

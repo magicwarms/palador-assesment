@@ -1,4 +1,10 @@
-import { getOrganizationData, getEmployeeByManagerId, getEmployeeByEmployeeId } from './organization.repositories';
+import {
+    getOrganizationData,
+    getEmployeeByManagerId,
+    getEmployeeByEmployeeId,
+    cacheId,
+    cache
+} from './organization.repositories';
 import { Organization, IDMapping } from './entity/Organization';
 
 /**
@@ -74,4 +80,22 @@ export const getEmployeeById = (employeeId: number, includeReportTree: boolean):
               })
             : []
     };
+};
+
+export const addEmployee = async (data: { name: string; status: string; managerId: number }): Promise<number> => {
+    const getAllOrganization = getOrganizationData();
+    let newId = 0;
+    if (getAllOrganization) {
+        getAllOrganization?.sort((a, b) => a.employeeId - b.employeeId);
+        newId = getAllOrganization[getAllOrganization.length - 1].employeeId + 1;
+        getAllOrganization?.push({
+            employeeId: newId,
+            name: data.name,
+            status: data.status,
+            managerId: data.managerId
+        });
+        cache.set(cacheId, getAllOrganization);
+    }
+
+    return newId;
 };
