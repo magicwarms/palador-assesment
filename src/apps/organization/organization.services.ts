@@ -37,12 +37,17 @@ export const getEmployeeById = (employeeId: number, includeReportTree: boolean):
     if (findManagerData) {
         manager = { employeeId: findManagerData?.employeeId, name: findManagerData.name, status: 'active' };
     }
-    let root;
+    let root: Organization = {
+        employeeId: 0,
+        name: '',
+        managerId: 0,
+        status: ''
+    };
     if (includeReportTree) {
         const getAllOrganization = getOrganizationData();
         if (getAllOrganization) {
             const idMapping = getAllOrganization.reduce((acc, el, i) => {
-                acc[el.employeeId] = i;
+                acc[el.employeeId as number] = i;
                 return acc;
             }, {} as IDMapping);
             getAllOrganization.forEach((el) => {
@@ -52,7 +57,7 @@ export const getEmployeeById = (employeeId: number, includeReportTree: boolean):
                     return;
                 }
                 // Use our mapping to locate the parent element in our data array
-                const parentEl = getAllOrganization[idMapping[el.managerId]];
+                const parentEl = getAllOrganization[idMapping[el.managerId as number]];
                 // Add our current el to its parent's `directReports` array
                 parentEl.directReports = [...(parentEl.directReports || []), el];
             });
@@ -64,5 +69,9 @@ export const getEmployeeById = (employeeId: number, includeReportTree: boolean):
         status: 'active',
         manager,
         directReports: root
+            ? root.directReports?.filter((item: Organization) => {
+                  if (item.employeeId === employeeId) return item;
+              })
+            : []
     };
 };
