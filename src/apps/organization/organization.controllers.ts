@@ -12,7 +12,13 @@
 
 import { Request, Response, NextFunction } from 'express';
 
-import { getAllEmployees, getEmployeeById, addEmployee, deleteEmployeeById } from './organization.services';
+import {
+    getAllEmployees,
+    getEmployeeById,
+    addEmployee,
+    deleteEmployeeById,
+    updateEmployee
+} from './organization.services';
 
 export const getAll = async (_req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     try {
@@ -81,6 +87,22 @@ export const deleteById = async (req: Request, res: Response, next: NextFunction
             success: true,
             data: {},
             message: 'Employee data has been deleted'
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const updateById = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
+    try {
+        const { name, status, managerId, employeeId } = req.body;
+        const data = { name, status, managerId, employeeId };
+
+        const updateEmployeeData = await updateEmployee(data);
+        return res.status(200).json({
+            success: true,
+            data: updateEmployeeData,
+            message: 'Employee updated'
         });
     } catch (err) {
         next(err);

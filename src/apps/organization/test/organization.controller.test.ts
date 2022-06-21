@@ -117,4 +117,23 @@ describe('Employee API Endpoints', () => {
         expect(result.body.data).toEqual({});
         expect(result.body.message).toEqual(expect.any(String));
     });
+
+    it('Request /employees (PUT). It should update a employee by employee ID', async () => {
+        const result = await request(app).put('/employees').send({
+            name: 'Employee Tests Update',
+            status: 'active',
+            managerId: 15,
+            employeeId: 20
+        });
+        expect(result.status).toBe(200);
+        expect(result.body.success).toEqual(true);
+        expect(result.body.data).toEqual(
+            expect.objectContaining({
+                name: expect.any(String),
+                status: expect.any(String),
+                employeeId: expect.any(Number)
+            })
+        );
+        expect(result.body.message).toEqual(expect.any(String));
+    });
 });

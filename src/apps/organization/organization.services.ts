@@ -120,3 +120,17 @@ export const deleteEmployeeById = async (employeeId: number): Promise<boolean> =
     }
     return true;
 };
+
+export const updateEmployee = async (data: Organization): Promise<Organization> => {
+    const getAllOrganization = getOrganizationData();
+    let updatedData: Organization[];
+    if (getAllOrganization) {
+        updatedData = getAllOrganization.map((item) =>
+            item.employeeId === data.employeeId
+                ? { ...item, name: data.name, status: data.status, managerId: data.managerId }
+                : item
+        );
+        cache.set(cacheId, updatedData);
+    }
+    return data;
+};
