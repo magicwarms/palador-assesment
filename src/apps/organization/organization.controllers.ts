@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { getAllEmployees, getEmployeeById, addEmployee } from './organization.services';
+import { getAllEmployees, getEmployeeById, addEmployee, deleteEmployeeById } from './organization.services';
 
 export const getAll = async (_req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     try {
@@ -48,6 +48,27 @@ export const add = async (req: Request, res: Response, next: NextFunction): Prom
             success: true,
             data: { employeeId: createEmployee },
             message: 'Employee created'
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const deleteById = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
+    try {
+        const employeeId = req.params.employeeId;
+        if (employeeId.search(/[0-9]/) < 0 || !employeeId) {
+            return res.status(400).json({
+                success: false,
+                data: {},
+                message: 'Employee ID not valid and must be number'
+            });
+        }
+        await deleteEmployeeById(+employeeId);
+        return res.status(200).json({
+            success: true,
+            data: {},
+            message: 'Employee data has been deleted'
         });
     } catch (err) {
         next(err);

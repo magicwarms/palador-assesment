@@ -108,4 +108,13 @@ describe('Employee API Endpoints', () => {
         );
         expect(result.body.message).toEqual(expect.any(String));
     });
+
+    it('Request /employees/:employeeId (DELETE). It should delete a employee data', async () => {
+        const result = await request(app).delete('/employees/19').send();
+
+        expect(result.status).toBe(200);
+        expect(result.body.success).toEqual(true);
+        expect(result.body.data).toEqual({});
+        expect(result.body.message).toEqual(expect.any(String));
+    });
 });

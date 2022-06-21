@@ -13,5 +13,6 @@ const organizationRouter = express.Router();
 organizationRouter.get('/', OrganizationController.getAll);
 organizationRouter.get('/:employeeId', OrganizationController.getById);
 organizationRouter.post('/', OrganizationController.add);
+organizationRouter.delete('/:employeeId', OrganizationController.deleteById);
 
 export default organizationRouter;

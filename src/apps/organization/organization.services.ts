@@ -99,3 +99,12 @@ export const addEmployee = async (data: { name: string; status: string; managerI
 
     return newId;
 };
+
+export const deleteEmployeeById = async (employeeId: number): Promise<boolean> => {
+    const getAllOrganization = getOrganizationData();
+    if (getAllOrganization) {
+        const deleteEmployee = getAllOrganization.filter((item) => item.employeeId !== employeeId);
+        cache.set(cacheId, deleteEmployee);
+    }
+    return true;
+};
